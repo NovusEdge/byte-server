@@ -21,17 +21,18 @@ type ByteServer struct {
 
 // Init initializes the server.
 func (bs *ByteServer) Init() {
+	bs.Handlers = make(map[string]func(w http.ResponseWriter, _ *http.Request))
 	for pattern, handleFunc := range bs.Handlers {
 		http.HandleFunc(pattern, handleFunc)
 	}
-	
+
 	InitLogging()
 }
 
 // Serve starts the serving process of the server
 func (bs *ByteServer) Serve(useTLS bool) error {
 	var err error
-	if useTLS {
+	if !useTLS {
 		err = http.ListenAndServe(fmt.Sprintf(":%d", bs.ServingPort), bs.Handler)
 	}
 	// else {  // TODO: Implement TLS styled serving for this server
