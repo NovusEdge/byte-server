@@ -1,5 +1,16 @@
 package wbyte
 
+
+/*
+// Author: Aliasgar Khimani (NovusEdge)
+// Project: github.com/ARaChn3/web-byte
+//
+// Copyright: MPL 2.0
+// See the LICENSE file for more info.
+//
+// All Rights Reserved
+*/
+
 import (
 	"fmt"
 	"io"
@@ -19,7 +30,15 @@ type ByteServer struct {
 	Handler http.Handler
 }
 
-// Init initializes the server.
+// MakeByteServer creates a new ByteServer and returns a pointer to it.
+func MakeByteServer(servingPort uint32, serverHandler http.Handler) (*ByteServer, error) {
+	newBS := ByteServer{
+		Handler:     handler,
+		ServingPort: servingPort,
+	}
+}
+
+// Init initializes the server and it's logging.
 func (bs *ByteServer) Init() {
 	bs.Handlers = make(map[string]func(w http.ResponseWriter, _ *http.Request))
 	for pattern, handleFunc := range bs.Handlers {
@@ -29,15 +48,15 @@ func (bs *ByteServer) Init() {
 	InitLogging()
 }
 
-// Serve starts the serving process of the server
-func (bs *ByteServer) Serve(useTLS bool) error {
+// Serve starts the serving process of the server.
+func (bs *ByteServer) Serve() error {
+
+	bs.LogInfo(fmt.Sprintf("Starting Server on port %d", bs.ServingPort))
+
 	var err error
 	if !useTLS {
 		err = http.ListenAndServe(fmt.Sprintf(":%d", bs.ServingPort), bs.Handler)
 	}
-	// else {  // TODO: Implement TLS styled serving for this server
-	// 	err = http.ListenAndServeTLS(fmt.Sprintf(":%d", bs.ServingPort), bs.Handler)
-	// }
 
 	if err != nil {
 		bs.LogError(err)
