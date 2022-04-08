@@ -35,6 +35,8 @@ func MakeByteServer(servingPort uint32, serverHandler http.Handler) (*ByteServer
 		Handler:     handler,
 		ServingPort: servingPort,
 	}
+
+	return &newbs, nil
 }
 
 // Init initializes the server and it's logging.
@@ -69,7 +71,7 @@ func (bs *ByteServer) AddHandler(pattern string, handleFunc func(w http.Response
 	bs.Handlers[pattern] = handleFunc
 }
 
-// the default serving message for the server
-func defaultServe(w http.ResponseWriter, _ *http.Request) {
+// DefaultServe specifies the default serving message for the server
+func DefaultServe(w http.ResponseWriter, _ *http.Request) {
 	io.WriteString(w, DefaultServerWelcomeMessage)
 }
