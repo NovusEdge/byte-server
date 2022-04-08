@@ -10,7 +10,7 @@ package wbyte
 // All Rights Reserved
 */
 
-
+// BannerArt is the default banner art for the web-server's welcome message.
 const BannerArt = `
 ██╗    ██╗███████╗██████╗     ██████╗ ██╗   ██╗████████╗███████╗
 ██║    ██║██╔════╝██╔══██╗    ██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝
@@ -20,8 +20,8 @@ const BannerArt = `
  ╚══╝╚══╝ ╚══════╝╚═════╝     ╚═════╝    ╚═╝      ╚═╝   ╚══════╝
 `
 
-// DefaultServerWelcomeMessage ...
-const DefaultServerWelcomeMessage = "Welcome to byte server!\n"
+// WelcomeMessage is the default welcome message for the server.
+const WelcomeMessage = "Welcome to byte server!\n"
 
 // Colors for console use
 const (

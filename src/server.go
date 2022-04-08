@@ -12,7 +12,6 @@ package wbyte
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 )
 
@@ -61,10 +60,4 @@ func (bs *ByteServer) Serve() error {
 // AddHandler adds a handler function to ByteServer.
 func (bs *ByteServer) AddHandler(pattern string, handleFunc func(w http.ResponseWriter, _ *http.Request)) {
 	bs.Handlers[pattern] = handleFunc
-}
-
-// DefaultServe specifies the default serving message for the server
-func DefaultServe(w http.ResponseWriter, _ *http.Request) {
-	io.WriteString(w, BannerArt)
-	io.WriteString(w, fmt.Sprintf("%s%s%s\n", BoldColorCyan, DefaultServerWelcomeMessage, ColorReset))
 }
