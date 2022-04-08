@@ -31,38 +31,30 @@ type ByteServer struct {
 
 // MakeByteServer creates a new ByteServer and returns a pointer to it.
 func MakeByteServer(servingPort uint32, serverHandler http.Handler) (*ByteServer, error) {
-	newBS := ByteServer{
-		Handler:     handler,
-		ServingPort: servingPort,
-	}
-
-	return &newbs, nil
-}
-
-// Init initializes the server and it's logging.
-func (bs *ByteServer) Init() {
-	bs.Handlers = make(map[string]func(w http.ResponseWriter, _ *http.Request))
-	for pattern, handleFunc := range bs.Handlers {
-		http.HandleFunc(pattern, handleFunc)
-	}
-
 	InitLogging()
+
+	handlers := make(map[string]func(w http.ResponseWriter, _ *http.Request))
+	newBS := ByteServer{
+		Handler:     serverHandler,
+		ServingPort: servingPort,
+		Handlers:    handlers,
+	}
+
+	return &newBS, nil
 }
 
 // Serve starts the serving process of the server.
 func (bs *ByteServer) Serve() error {
-
 	bs.LogInfo(fmt.Sprintf("Starting Server on port %d", bs.ServingPort))
 
-	var err error
-	if !useTLS {
-		err = http.ListenAndServe(fmt.Sprintf(":%d", bs.ServingPort), bs.Handler)
+	for pattern, handleFunc := range bs.Handlers {
+		http.HandleFunc(pattern, handleFunc)
 	}
 
+	err := http.ListenAndServe(fmt.Sprintf(":%d", bs.ServingPort), bs.Handler)
 	if err != nil {
 		bs.LogError(err)
 	}
-
 	return err
 }
 
@@ -73,5 +65,6 @@ func (bs *ByteServer) AddHandler(pattern string, handleFunc func(w http.Response
 
 // DefaultServe specifies the default serving message for the server
 func DefaultServe(w http.ResponseWriter, _ *http.Request) {
-	io.WriteString(w, DefaultServerWelcomeMessage)
+	io.WriteString(w, BannerArt)
+	io.WriteString(w, fmt.Sprintf("%s%s%s\n", BoldColorCyan, DefaultServerWelcomeMessage, ColorReset))
 }

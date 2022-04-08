@@ -10,8 +10,18 @@ package wbyte
 // All Rights Reserved
 */
 
+
+const BannerArt = `
+██╗    ██╗███████╗██████╗     ██████╗ ██╗   ██╗████████╗███████╗
+██║    ██║██╔════╝██╔══██╗    ██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝
+██║ █╗ ██║█████╗  ██████╔╝    ██████╔╝ ╚████╔╝    ██║   █████╗
+██║███╗██║██╔══╝  ██╔══██╗    ██╔══██╗  ╚██╔╝     ██║   ██╔══╝
+╚███╔███╔╝███████╗██████╔╝    ██████╔╝   ██║      ██║   ███████╗
+ ╚══╝╚══╝ ╚══════╝╚═════╝     ╚═════╝    ╚═╝      ╚═╝   ╚══════╝
+`
+
 // DefaultServerWelcomeMessage ...
-const DefaultServerWelcomeMessage = `Welcome to byte server!\n`
+const DefaultServerWelcomeMessage = "Welcome to byte server!\n"
 
 // Colors for console use
 const (

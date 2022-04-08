@@ -1,13 +1,13 @@
 package main
 
 import (
-    wb "github.com/NovusEdge/web-byte/src"
+	wb "github.com/NovusEdge/web-byte/src"
+	"log"
 )
 
 func main() {
-    bs, _ := wb.MakeByteServer(8080, nil)
+	bs, _ := wb.MakeByteServer(8080, nil)
 
-    bs.AddHandler("/", wb.DefaultServe)
-    bs.Init()
-    log.Fatal(bs.Serve())
+	bs.AddHandler("/", wb.DefaultServe)
+	log.Fatal(bs.Serve())
 }
