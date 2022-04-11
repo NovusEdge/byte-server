@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	bs, _ := wb.MakeByteServer(8080, nil)
+	bs, _ := wb.MakeByteServer(42069, nil)
 
 	bs.AddHandler("/", wbhandlers.Welcome)
 	log.Fatal(bs.Serve())
