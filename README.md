@@ -33,7 +33,7 @@ user@machine$ bash setup/setup.bash
 user@machine$ go run webbyte.go
 
 # Or build it and run it directly
-user@machine$ go builf webbyte.go && ./webbyte
+user@machine$ go build webbyte.go && ./webbyte
 ```
 
 **NOTE**: _The CLI for code generation is currently under development._
